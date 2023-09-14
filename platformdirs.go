@@ -6,43 +6,42 @@ import (
 
 	"github.com/christopherdavenport/platformdirs-go/internal/core"
 	"github.com/christopherdavenport/platformdirs-go/internal/linux"
+	"github.com/christopherdavenport/platformdirs-go/internal/darwin"
 )
 
 type PlatformDirs struct {
-	AppName string
-	AppAuthor string
-	Version string // ""
-	Roaming bool // False
-	Multipath bool // False
-	Opinion bool // True
-	EnsureExists bool // False
+	AppName      string
+	AppAuthor    string
+	Version      string // ""
+	Roaming      bool   // False
+	Multipath    bool   // False
+	Opinion      bool   // True
+	EnsureExists bool   // False
 }
-
 
 func New(appName string, appAuthor string) PlatformDirs {
 	return PlatformDirs{
-		AppName: appName,
-		AppAuthor: appAuthor,
-		Version: "",
-		Roaming: false,
-		Multipath: false,
-		Opinion: true,
+		AppName:      appName,
+		AppAuthor:    appAuthor,
+		Version:      "",
+		Roaming:      false,
+		Multipath:    false,
+		Opinion:      true,
 		EnsureExists: false,
-	  }
+	}
 }
 
 func (r PlatformDirs) transform() core.PlatformParams {
 	return core.PlatformParams{
-		AppName: r.AppName,
-		AppAuthor: r.AppAuthor,
-		Version: r.Version,
-		Roaming: r.Roaming,
-		Multipath: r.Multipath,
-		Opinion: r.Opinion,
+		AppName:      r.AppName,
+		AppAuthor:    r.AppAuthor,
+		Version:      r.Version,
+		Roaming:      r.Roaming,
+		Multipath:    r.Multipath,
+		Opinion:      r.Opinion,
 		EnsureExists: r.EnsureExists,
 	}
 }
-
 
 // type PlatformDirs interface {
 //     UserDataDir() (string, error)
@@ -65,11 +64,11 @@ func (r PlatformDirs) transform() core.PlatformParams {
 
 func (r PlatformDirs) UserDataDir() (string, error) {
 	switch os := runtime.GOOS; os {
-      case "darwin":
-		return "", nil
-	  case "linux":
+	case "darwin":
+		return darwin.UserDataDir(r.transform())
+	case "linux":
 		return linux.UserDataDir(r.transform())
-	  default:
-		return "", errors.New("")
-   }
+	default:
+		return "", errors.New("PlatformDirs does not know how to work with that GOOS yet")
+	}
 }

@@ -1,9 +1,8 @@
-
 package platformdirs
 
 import (
 	"regexp"
-    "testing"
+	"testing"
 )
 
 func TestPlatformDirsSimple(t *testing.T) {
