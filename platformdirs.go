@@ -5,8 +5,8 @@ import (
 	"runtime"
 
 	"github.com/christopherdavenport/platformdirs-go/internal/core"
-	"github.com/christopherdavenport/platformdirs-go/internal/unix"
 	"github.com/christopherdavenport/platformdirs-go/internal/darwin"
+	"github.com/christopherdavenport/platformdirs-go/internal/unix"
 )
 
 type PlatformDirs struct {
@@ -63,12 +63,28 @@ func (r PlatformDirs) transform() core.PlatformParams {
 // }
 
 func (r PlatformDirs) UserDataDir() (string, error) {
+	return osSwitch(r, darwin.UserDataDir, unix.UserDataDir, unImplemented)
+}
+
+func unImplemented(core.PlatformParams) (string, error) {
+	return "", errors.New("PlatformDirs does not know how to work with that GOOS yet")
+}
+
+func osSwitch(
+	dirs PlatformDirs,
+	mac func(core.PlatformParams) (string, error),
+	unix func(core.PlatformParams) (string, error),
+	windows func(core.PlatformParams) (string, error),
+) (string, error) {
+	t := dirs.transform()
 	switch os := runtime.GOOS; os {
-	case "darwin":
-		return darwin.UserDataDir(r.transform())
-	case "linux":
-		return unix.UserDataDir(r.transform())
-	default:
-		return "", errors.New("PlatformDirs does not know how to work with that GOOS yet")
+	case "darwin", "ios":
+		return mac(t)
+	case "linux", "freebsd", "openbsd", "netbsd", "solaris", "aix", "dragonfly", "illumos", "plan9":
+		return unix(t)
+	case "windows":
+		return windows(t)
+	default: // Android, and js???
+		return unImplemented(t)
 	}
 }
