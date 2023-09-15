@@ -86,7 +86,7 @@ func UserConfigDir(params core.PlatformParams) (string, error) {
 //
 // Without multipath - /etc/xdg/$appname/$version
 // With multipath - all dirs appended with `/$appname/$version`
-func SiteConfDir(params core.PlatformParams) (string, error) {
+func SiteConfigDir(params core.PlatformParams) (string, error) {
 	configDirs := os.Getenv("XDG_CONFIG_DIRS")
 	if configDirs == "" {
 		configDirs = "/etc/xdg"

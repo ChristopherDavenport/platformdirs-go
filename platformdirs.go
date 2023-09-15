@@ -2,10 +2,11 @@ package platformdirs
 
 import (
 	"errors"
+	"fmt"
 	"runtime"
 
 	"github.com/christopherdavenport/platformdirs-go/internal/core"
-	"github.com/christopherdavenport/platformdirs-go/internal/darwin"
+	"github.com/christopherdavenport/platformdirs-go/internal/macos"
 	"github.com/christopherdavenport/platformdirs-go/internal/unix"
 )
 
@@ -44,30 +45,92 @@ func (r PlatformDirs) transform() core.PlatformParams {
 }
 
 // type PlatformDirs interface {
-//     UserDataDir() (string, error)
-// 	// SiteDataDir() (string, error)
-// 	// UserConfigDir() (string, error)
-// 	// SiteConfigDir() (string, error)
-// 	// UserCacheDir() (string, error)
-// 	// SiteCacheDir() (string, error)
-// 	// UserStateDir() (string, error)
-// 	// UserLogDir() (string, error)
-// 	// UserDocumentsDir() (string, error)
-// 	// UserDownloadsDir() (string, error)
-// 	// UserPicturesDir() (string, error)
-// 	// UserVideosDir() (string, error)
-// 	// UserMusicDir() (string, error)
-// 	// UserDesktopDir() (string, error)
-// 	// UserRuntimeDir() (string, error)
-// 	// SiteRuntimeDir() (string, error)
+//   UserDataDir() (string, error)
+// 	 SiteDataDir() (string, error)
+// 	 UserConfigDir() (string, error)
+// 	SiteConfigDir() (string, error)
+// 	UserCacheDir() (string, error)
+//  SiteCacheDir() (string, error)
+// 	UserStateDir() (string, error)
+// 	UserLogDir() (string, error)
+// 	UserDocumentsDir() (string, error)
+// 	UserDownloadsDir() (string, error)
+// 	UserPicturesDir() (string, error)
+// 	UserVideosDir() (string, error)
+// 	UserMusicDir() (string, error)
+// 	UserDesktopDir() (string, error)
+// 	UserRuntimeDir() (string, error)
+// 	SiteRuntimeDir() (string, error)
 // }
 
 func (r PlatformDirs) UserDataDir() (string, error) {
-	return osSwitch(r, darwin.UserDataDir, unix.UserDataDir, unImplemented)
+	return osSwitch(r, macos.UserDataDir, unix.UserDataDir, unImplemented)
+}
+
+func (r PlatformDirs) SiteDataDir() (string, error) {
+	return osSwitch(r, macos.SiteDataDir, unix.SiteDataDir, unImplemented)
+}
+
+func (r PlatformDirs) UserConfigDir() (string, error) {
+	return osSwitch(r, macos.UserConfigDir, unix.UserConfigDir, unImplemented)
+}
+
+func (r PlatformDirs) SiteConfigDir() (string, error) {
+	return osSwitch(r, macos.SiteConfigDir, unix.SiteConfigDir, unImplemented)
+}
+
+func (r PlatformDirs) UserCacheDir() (string, error) {
+	return osSwitch(r, macos.UserCacheDir, unix.UserCacheDir, unImplemented)
+}
+
+func (r PlatformDirs) SiteCacheDir() (string, error) {
+	return osSwitch(r, macos.SiteConfigDir, unix.SiteConfigDir, unImplemented)
+}
+
+func (r PlatformDirs) UserStateDir() (string, error) {
+	return osSwitch(r, macos.UserStateDir, unix.UserStateDir, unImplemented)
+}
+
+func (r PlatformDirs) UserLogDir() (string, error) {
+	return osSwitch(r, macos.UserLogDir, unix.UserLogDir, unImplemented)
+}
+
+func (r PlatformDirs) UserDocumentsDir() (string, error) {
+	return osSwitch(r, macos.UserDocumentsDir, unix.UserDocumentsDir, unImplemented)
+}
+
+func (r PlatformDirs) UserDownloadsDir() (string, error) {
+	return osSwitch(r, macos.UserDownloadsDir, unix.UserDownloadsDir, unImplemented)
+}
+
+func (r PlatformDirs) UserPicturesDir() (string, error) {
+	return osSwitch(r, macos.UserPicturesDir, unix.UserPicturesDir, unImplemented)
+}
+
+func (r PlatformDirs) UserVideosDir() (string, error) {
+	return osSwitch(r, macos.UserVideosDir, unix.UserVideosDir, unImplemented)
+}
+
+func (r PlatformDirs) UserMusicDir() (string, error) {
+	return osSwitch(r, macos.UserMusicDir, unix.UserMusicDir, unImplemented)
+}
+
+func (r PlatformDirs) UserDesktopDir() (string, error) {
+	return osSwitch(r, macos.UserDesktopDir, unix.UserDesktopDir, unImplemented)
+}
+
+func (r PlatformDirs) UserRuntimeDir() (string, error) {
+	return osSwitch(r, macos.UserRuntimeDir, unix.UserRuntimeDir, unImplemented)
+}
+
+func (r PlatformDirs) SiteRuntimeDir() (string, error) {
+	return osSwitch(r, macos.SiteRuntimeDir, unix.SiteRuntimeDir, unImplemented)
 }
 
 func unImplemented(core.PlatformParams) (string, error) {
-	return "", errors.New("PlatformDirs does not know how to work with that GOOS yet")
+	os := runtime.GOOS
+	msg := fmt.Sprintf("PlatformDirs does not know how to work with GOOS %s yet", os)
+	return "", errors.New(msg)
 }
 
 func osSwitch(

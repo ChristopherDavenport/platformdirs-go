@@ -1,4 +1,4 @@
-package darwin
+package macos
 
 import (
 	"github.com/christopherdavenport/platformdirs-go/internal/core"
