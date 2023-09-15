@@ -5,7 +5,7 @@ import (
 	"runtime"
 
 	"github.com/christopherdavenport/platformdirs-go/internal/core"
-	"github.com/christopherdavenport/platformdirs-go/internal/linux"
+	"github.com/christopherdavenport/platformdirs-go/internal/unix"
 	"github.com/christopherdavenport/platformdirs-go/internal/darwin"
 )
 
@@ -67,7 +67,7 @@ func (r PlatformDirs) UserDataDir() (string, error) {
 	case "darwin":
 		return darwin.UserDataDir(r.transform())
 	case "linux":
-		return linux.UserDataDir(r.transform())
+		return unix.UserDataDir(r.transform())
 	default:
 		return "", errors.New("PlatformDirs does not know how to work with that GOOS yet")
 	}

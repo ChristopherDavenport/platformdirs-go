@@ -1,4 +1,4 @@
-package linux
+package unix
 
 import (
 	"github.com/christopherdavenport/platformdirs-go/internal/core"
@@ -24,3 +24,7 @@ func UserDataDir(dir core.PlatformParams) (string, error) {
 	}
 	return core.Append_app_name_and_version(dir, homePath)
 }
+
+
+
+
