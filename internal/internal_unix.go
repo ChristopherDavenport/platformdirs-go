@@ -1,4 +1,5 @@
-package unix
+//go:build linux || freebsd || openbsd || netbsd || solaris || aix || dragonfly || illumos || plan9
+package internal
 
 import (
 	"errors"
@@ -146,7 +147,7 @@ func UserDocumentsDir(params core.PlatformParams) (string, error) {
 	return envNameOrHomePlus("XDG_DOCUMENTS_DIR", "Documents")
 }
 
-func UserDownloadsDir(params core.PlatformParams) (string, error) {
+func UserDowloadsDir(params core.PlatformParams) (string, error) {
 	return envNameOrHomePlus("XDG_DOWNLOAD_DIR", "Downloads")
 }
 
