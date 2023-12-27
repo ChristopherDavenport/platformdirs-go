@@ -1,4 +1,5 @@
-package macos
+//go:build darwin || ios
+package internal
 
 import (
 	"github.com/christopherdavenport/platformdirs-go/internal/core"
@@ -74,7 +75,7 @@ func UserDocumentsDir(dir core.PlatformParams) (string, error) {
 }
 
 // downloads directory tied to the user, e.g. `~/Downloads`
-func UserDownloadsDir(dir core.PlatformParams) (string, error) {
+func UserDowloadsDir(dir core.PlatformParams) (string, error) {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
 		return "", err

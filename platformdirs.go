@@ -1,13 +1,8 @@
 package platformdirs
 
 import (
-	"errors"
-	"fmt"
-	"runtime"
-
 	"github.com/christopherdavenport/platformdirs-go/internal/core"
-	"github.com/christopherdavenport/platformdirs-go/internal/macos"
-	"github.com/christopherdavenport/platformdirs-go/internal/unix"
+	"github.com/christopherdavenport/platformdirs-go/internal"
 )
 
 type PlatformDirs struct {
@@ -64,90 +59,65 @@ func (r PlatformDirs) transform() core.PlatformParams {
 // }
 
 func (r PlatformDirs) UserDataDir() (string, error) {
-	return osSwitch(r, macos.UserDataDir, unix.UserDataDir, unImplemented)
+	return internal.UserDataDir(r.transform())
 }
 
 func (r PlatformDirs) SiteDataDir() (string, error) {
-	return osSwitch(r, macos.SiteDataDir, unix.SiteDataDir, unImplemented)
+	return internal.SiteDataDir(r.transform())
 }
 
 func (r PlatformDirs) UserConfigDir() (string, error) {
-	return osSwitch(r, macos.UserConfigDir, unix.UserConfigDir, unImplemented)
+	return internal.UserConfigDir(r.transform())
 }
 
 func (r PlatformDirs) SiteConfigDir() (string, error) {
-	return osSwitch(r, macos.SiteConfigDir, unix.SiteConfigDir, unImplemented)
+	return internal.SiteConfigDir(r.transform())
 }
 
 func (r PlatformDirs) UserCacheDir() (string, error) {
-	return osSwitch(r, macos.UserCacheDir, unix.UserCacheDir, unImplemented)
+	return internal.UserCacheDir(r.transform())
 }
 
 func (r PlatformDirs) SiteCacheDir() (string, error) {
-	return osSwitch(r, macos.SiteConfigDir, unix.SiteConfigDir, unImplemented)
+	return internal.SiteCacheDir(r.transform())
 }
 
 func (r PlatformDirs) UserStateDir() (string, error) {
-	return osSwitch(r, macos.UserStateDir, unix.UserStateDir, unImplemented)
+	return internal.UserStateDir(r.transform())
 }
 
 func (r PlatformDirs) UserLogDir() (string, error) {
-	return osSwitch(r, macos.UserLogDir, unix.UserLogDir, unImplemented)
+	return internal.UserLogDir(r.transform())
 }
 
 func (r PlatformDirs) UserDocumentsDir() (string, error) {
-	return osSwitch(r, macos.UserDocumentsDir, unix.UserDocumentsDir, unImplemented)
+	return internal.UserDocumentsDir(r.transform())
 }
 
 func (r PlatformDirs) UserDownloadsDir() (string, error) {
-	return osSwitch(r, macos.UserDownloadsDir, unix.UserDownloadsDir, unImplemented)
+	return internal.UserDowloadsDir(r.transform())
 }
 
 func (r PlatformDirs) UserPicturesDir() (string, error) {
-	return osSwitch(r, macos.UserPicturesDir, unix.UserPicturesDir, unImplemented)
+	return internal.UserPicturesDir(r.transform())
 }
 
 func (r PlatformDirs) UserVideosDir() (string, error) {
-	return osSwitch(r, macos.UserVideosDir, unix.UserVideosDir, unImplemented)
+	return internal.UserVideosDir(r.transform())
 }
 
 func (r PlatformDirs) UserMusicDir() (string, error) {
-	return osSwitch(r, macos.UserMusicDir, unix.UserMusicDir, unImplemented)
+	return internal.UserMusicDir(r.transform())
 }
 
 func (r PlatformDirs) UserDesktopDir() (string, error) {
-	return osSwitch(r, macos.UserDesktopDir, unix.UserDesktopDir, unImplemented)
+	return internal.UserDesktopDir(r.transform())
 }
 
 func (r PlatformDirs) UserRuntimeDir() (string, error) {
-	return osSwitch(r, macos.UserRuntimeDir, unix.UserRuntimeDir, unImplemented)
+	return internal.UserRuntimeDir(r.transform())
 }
 
 func (r PlatformDirs) SiteRuntimeDir() (string, error) {
-	return osSwitch(r, macos.SiteRuntimeDir, unix.SiteRuntimeDir, unImplemented)
-}
-
-func unImplemented(core.PlatformParams) (string, error) {
-	os := runtime.GOOS
-	msg := fmt.Sprintf("PlatformDirs does not know how to work with GOOS %s yet", os)
-	return "", errors.New(msg)
-}
-
-func osSwitch(
-	dirs PlatformDirs,
-	mac func(core.PlatformParams) (string, error),
-	unix func(core.PlatformParams) (string, error),
-	windows func(core.PlatformParams) (string, error),
-) (string, error) {
-	t := dirs.transform()
-	switch os := runtime.GOOS; os {
-	case "darwin", "ios":
-		return mac(t)
-	case "linux", "freebsd", "openbsd", "netbsd", "solaris", "aix", "dragonfly", "illumos", "plan9":
-		return unix(t)
-	case "windows":
-		return windows(t)
-	default: // Android, and js???
-		return unImplemented(t)
-	}
+	return internal.SiteRuntimeDir(r.transform())
 }
