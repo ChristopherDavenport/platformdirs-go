@@ -1,0 +1,8 @@
+http4s
+Copyright 2013-2021 http4s.org
+Licensed under Apache License 2.0 (see LICENSE)
+
+This software contains portions of code derived from platformdirs
+https://github.com/platformdirs/platformdirs
+Copyright (c) 2010-202x The platformdirs developers
+Licensed under MIT (see licenses/platform_dirs_LICENSE)

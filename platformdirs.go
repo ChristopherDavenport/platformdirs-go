@@ -8,6 +8,7 @@ import (
 	"github.com/christopherdavenport/platformdirs-go/internal/core"
 	"github.com/christopherdavenport/platformdirs-go/internal/macos"
 	"github.com/christopherdavenport/platformdirs-go/internal/unix"
+	"github.com/christopherdavenport/platformdirs-go/internal/windows"
 )
 
 type PlatformDirs struct {
@@ -64,67 +65,67 @@ func (r PlatformDirs) transform() core.PlatformParams {
 // }
 
 func (r PlatformDirs) UserDataDir() (string, error) {
-	return osSwitch(r, macos.UserDataDir, unix.UserDataDir, unImplemented)
+	return osSwitch(r, macos.UserDataDir, unix.UserDataDir, windows.UserDataDir)
 }
 
 func (r PlatformDirs) SiteDataDir() (string, error) {
-	return osSwitch(r, macos.SiteDataDir, unix.SiteDataDir, unImplemented)
+	return osSwitch(r, macos.SiteDataDir, unix.SiteDataDir, windows.SiteDataDir)
 }
 
 func (r PlatformDirs) UserConfigDir() (string, error) {
-	return osSwitch(r, macos.UserConfigDir, unix.UserConfigDir, unImplemented)
+	return osSwitch(r, macos.UserConfigDir, unix.UserConfigDir, windows.UserConfigDir)
 }
 
 func (r PlatformDirs) SiteConfigDir() (string, error) {
-	return osSwitch(r, macos.SiteConfigDir, unix.SiteConfigDir, unImplemented)
+	return osSwitch(r, macos.SiteConfigDir, unix.SiteConfigDir, windows.SiteConfigDir)
 }
 
 func (r PlatformDirs) UserCacheDir() (string, error) {
-	return osSwitch(r, macos.UserCacheDir, unix.UserCacheDir, unImplemented)
+	return osSwitch(r, macos.UserCacheDir, unix.UserCacheDir, windows.UserCacheDir)
 }
 
 func (r PlatformDirs) SiteCacheDir() (string, error) {
-	return osSwitch(r, macos.SiteConfigDir, unix.SiteConfigDir, unImplemented)
+	return osSwitch(r, macos.SiteConfigDir, unix.SiteConfigDir, windows.SiteCacheDir)
 }
 
 func (r PlatformDirs) UserStateDir() (string, error) {
-	return osSwitch(r, macos.UserStateDir, unix.UserStateDir, unImplemented)
+	return osSwitch(r, macos.UserStateDir, unix.UserStateDir, windows.UserStateDir)
 }
 
 func (r PlatformDirs) UserLogDir() (string, error) {
-	return osSwitch(r, macos.UserLogDir, unix.UserLogDir, unImplemented)
+	return osSwitch(r, macos.UserLogDir, unix.UserLogDir, windows.UserLogDir)
 }
 
 func (r PlatformDirs) UserDocumentsDir() (string, error) {
-	return osSwitch(r, macos.UserDocumentsDir, unix.UserDocumentsDir, unImplemented)
+	return osSwitch(r, macos.UserDocumentsDir, unix.UserDocumentsDir, windows.UserDocumentsDir)
 }
 
 func (r PlatformDirs) UserDownloadsDir() (string, error) {
-	return osSwitch(r, macos.UserDownloadsDir, unix.UserDownloadsDir, unImplemented)
+	return osSwitch(r, macos.UserDownloadsDir, unix.UserDownloadsDir, windows.UserDowloadsDir)
 }
 
 func (r PlatformDirs) UserPicturesDir() (string, error) {
-	return osSwitch(r, macos.UserPicturesDir, unix.UserPicturesDir, unImplemented)
+	return osSwitch(r, macos.UserPicturesDir, unix.UserPicturesDir, windows.UserPicturesDir)
 }
 
 func (r PlatformDirs) UserVideosDir() (string, error) {
-	return osSwitch(r, macos.UserVideosDir, unix.UserVideosDir, unImplemented)
+	return osSwitch(r, macos.UserVideosDir, unix.UserVideosDir, windows.UserVideosDir)
 }
 
 func (r PlatformDirs) UserMusicDir() (string, error) {
-	return osSwitch(r, macos.UserMusicDir, unix.UserMusicDir, unImplemented)
+	return osSwitch(r, macos.UserMusicDir, unix.UserMusicDir, windows.UserMusicDir)
 }
 
 func (r PlatformDirs) UserDesktopDir() (string, error) {
-	return osSwitch(r, macos.UserDesktopDir, unix.UserDesktopDir, unImplemented)
+	return osSwitch(r, macos.UserDesktopDir, unix.UserDesktopDir, windows.UserDesktopDir)
 }
 
 func (r PlatformDirs) UserRuntimeDir() (string, error) {
-	return osSwitch(r, macos.UserRuntimeDir, unix.UserRuntimeDir, unImplemented)
+	return osSwitch(r, macos.UserRuntimeDir, unix.UserRuntimeDir, windows.UserRuntimeDir)
 }
 
 func (r PlatformDirs) SiteRuntimeDir() (string, error) {
-	return osSwitch(r, macos.SiteRuntimeDir, unix.SiteRuntimeDir, unImplemented)
+	return osSwitch(r, macos.SiteRuntimeDir, unix.SiteRuntimeDir, windows.SiteRuntimeDir)
 }
 
 func unImplemented(core.PlatformParams) (string, error) {
