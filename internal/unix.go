@@ -1,6 +1,6 @@
-//go:build linux || freebsd || openbsd || netbsd || solaris || aix || dragonfly || illumos || plan9
+//go:build !(darwin || ios || windows)
 package internal
-
+// linux || freebsd || openbsd || netbsd || solaris || aix || dragonfly || illumos || plan9
 import (
 	"errors"
 	"fmt"
